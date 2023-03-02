@@ -18,7 +18,7 @@ public class LevelManager : SingeltonAutoManager<LevelManager>
 
     private void Start()
     {
-        Initialization();
+        //Initialization();
     }
 
     protected void Initialization()

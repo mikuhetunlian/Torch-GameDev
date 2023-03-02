@@ -203,9 +203,6 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
-
-     
-
         ApplyGravity();
         FrameInitialization();
 
