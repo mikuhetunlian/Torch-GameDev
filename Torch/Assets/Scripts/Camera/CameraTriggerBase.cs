@@ -13,6 +13,8 @@ public class CameraTriggerBase : MonoBehaviour
     public List<GameObject> ActiveListWhenIn;
     public bool IsCameraOutsideBlack;
 
+    public Color gizmosColor;
+
     protected BoxCollider2D cameraTriggerBox;
     protected string _VCameraName;
     protected CinemachineVirtualCamera _VCamera;

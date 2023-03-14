@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
 using UnityEngine.Events;
+using DG.Tweening;
 
 public class CameraMgr : BaseManager<CameraMgr>
 {
@@ -10,13 +11,44 @@ public class CameraMgr : BaseManager<CameraMgr>
     public CinemachineVirtualCamera PlayerVirtualCamera { get;  set; }
     public Vector3 DefaultOffset = new Vector2(0, 7.6f);
     private CinemachineBrain _brain;
+    protected CinemachineVirtualCamera _currentActiveCamera;
     protected CinemachineVirtualCamera _previousActiveCamera;
 
     public CameraMgr()
     {
         _brain = Camera.main.gameObject.GetComponent<CinemachineBrain>();
-        PlayerVirtualCamera = GameObject.Find("CM vcam1").GetComponent<CinemachineVirtualCamera>();
-        _previousActiveCamera = _brain.ActiveVirtualCamera as CinemachineVirtualCamera;
+        //PlayerVirtualCamera = GameObject.Find("CM vcam1").GetComponent<CinemachineVirtualCamera>();
+        //_previousActiveCamera = _brain.ActiveVirtualCamera as CinemachineVirtualCamera;
+
+
+
+    }
+
+    /// <summary>
+    /// 或许当前被激活的VirtualCamera
+    /// </summary>
+    /// <returns></returns>
+    public CinemachineVirtualCamera GetCurrentActiveCamera()
+    {
+        CinemachineVirtualCamera currentCamera = (CinemachineVirtualCamera)_brain.ActiveVirtualCamera;
+        return currentCamera;
+    }
+
+    /// <summary>
+    /// 设置cinemachine的 OrthoSize
+    /// </summary>
+    /// <param name="newOrthoSize">想要设置的新的值</param>
+    /// <param name="durationTime">在多少秒之内设置完成</param>
+    public void SetOrthoSize(float newOrthoSize,float durationTime)
+    {
+        CinemachineVirtualCamera currentCamera = GetCurrentActiveCamera();
+        if (currentCamera != null)
+        {
+            DOVirtual.Float(currentCamera.m_Lens.OrthographicSize, newOrthoSize, durationTime, (changedOrthoSize) =>
+            {
+                currentCamera.m_Lens.OrthographicSize = changedOrthoSize;
+            });
+        }
     }
 
     /// <summary>
@@ -30,6 +62,16 @@ public class CameraMgr : BaseManager<CameraMgr>
         }
 
         _brain.m_DefaultBlend.m_Time = blendTime;
+    }
+
+    /// <summary>
+    /// 设置cinemachine的followTarget
+    /// </summary>
+    /// <param name="followTarget">想要设置的followTarget</param>
+    public void ChangeFollow(Transform followTarget)
+    {
+        CinemachineVirtualCamera currentCamera = GetCurrentActiveCamera();
+        currentCamera.Follow = followTarget;
     }
 
 
@@ -129,5 +171,18 @@ public class CameraMgr : BaseManager<CameraMgr>
         CinemachineFramingTransposer ft =  camera.GetCinemachineComponent<CinemachineFramingTransposer>();
         ft.m_XDamping = damping.x;
         ft.m_YDamping = damping.y;
+    }
+
+
+    /// <summary>
+    /// 设置 DeadZone 的尺寸
+    /// </summary>
+    /// <param name="deathZoneSize"></param>
+    public void SetDeathZone(float width,float height)
+    {
+        CinemachineVirtualCamera camera = _brain.ActiveVirtualCamera as CinemachineVirtualCamera;
+        CinemachineFramingTransposer ft = camera.GetCinemachineComponent<CinemachineFramingTransposer>();
+        ft.m_DeadZoneHeight = height;
+        ft.m_DeadZoneWidth = width;
     }
 }
