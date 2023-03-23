@@ -7,7 +7,8 @@ using Spine.Unity;
 
 
 /// <summary>
-/// 这个类是用来定义所有gameplay的地方（大概）
+/// Player类 的主要作用是用来管理playerAblity们
+/// 玩家角色 面朝向的功能写在了Player中，HorizontalMovement 不包含改变面朝向的功能
 /// </summary>
 public class Player : MonoBehaviour
 {
@@ -127,7 +128,6 @@ public class Player : MonoBehaviour
             {
                 ability.LateProcessAbility();
             }
-
         }
     }
 
@@ -165,8 +165,6 @@ public class Player : MonoBehaviour
             InitializeAnimatorParameters();
         }
     }
-
-
 
 
     protected virtual void InitializeAnimatorParameters()

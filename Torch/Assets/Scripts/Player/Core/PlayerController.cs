@@ -7,20 +7,19 @@ public enum RaycastDirection { Up, Down, Left, Right }
 
 
 /// <summary>
-/// 这个类是用来管理射线检测和重力方向大小控制的（目前还没有重力控制相关的功能）
+/// PlayerController类 的主要作用是控制 玩家角色 的移动：通过射线检测和来控制 玩家角色 的坐标
 /// </summary>
 public class PlayerController : MonoBehaviour
 {
 
-
-    //每个方向的射线数
+    // 每个方向的射线数
     public int RaycastNum;
 
     public Player _player;
     public PlayerControllerState State;
-    //表明player的一些参数
+    // PlyaerController会用到的参数
     public PlayerControllerParameters Parameters;
-    //boxCollider2D
+    // boxCollider2D
     public BoxCollider2D Collider;
 
     public Dictionary<RaycastDirection, List<RaycastHit2D>> hitInfos = new Dictionary<RaycastDirection, List<RaycastHit2D>>();
@@ -39,11 +38,11 @@ public class PlayerController : MonoBehaviour
 
 
     [Header("Ray")]
-    ///是否画出射线
+    // 是否画出射线
     public bool isDrawRay;
     public short NumberOfHorizontalRays = 8;
     public short NumberOfVerticalRays = 8;
-    ///距离边界一小段的offset
+    // 距离边界一小段的offset
     public float rayOffset;
 
     public float RayOffsetVertical;
@@ -51,7 +50,7 @@ public class PlayerController : MonoBehaviour
 
     public GameObject StandingOn;
     public Collider2D StandingOnCollider;
-    //可以push或pull的物体
+    // 可以push或pull的物体
     public GameObject ControlAbleObject;
     public RaycastHit2D LeftHitInfo;
     public RaycastHit2D RighthHitInfo;
@@ -92,7 +91,6 @@ public class PlayerController : MonoBehaviour
     protected PathMovement _movingPlatformTest;
     protected PathMovement _movingPlatform;
 
-
     protected const float _smallValue = 0.0001f;
     protected const float _movingPlatformGraviy = -500;   // ??? 这个没懂
 
@@ -103,7 +101,6 @@ public class PlayerController : MonoBehaviour
         Physics2D.queriesStartInColliders = false;
         GameObject.DontDestroyOnLoad(this.gameObject);
         SetRaycastParameter();
-
     }
 
 
@@ -112,7 +109,10 @@ public class PlayerController : MonoBehaviour
         GetComponents();
         Initialization();
     }
-    //初始化数据
+
+    /// <summary>
+    ///  初始化数据
+    /// </summary>
     public void Initialization()
     {
         //打开Input模块
@@ -142,6 +142,9 @@ public class PlayerController : MonoBehaviour
         CachePlatformMask();
     }
 
+    /// <summary>
+    /// 获得 需要获得的组件
+    /// </summary>
     public void GetComponents()
     {
         Collider = GetComponent<BoxCollider2D>();
@@ -150,51 +153,77 @@ public class PlayerController : MonoBehaviour
     }
 
 
+    #region 移动API
+    // 下方的API都是用来控制 玩家角色的移动的，如果 ablity 中需要改变 玩家角色 的移动，调用下面的API来控制
+    // API的使用可以参照 HorizontalMovve 和 Jump
 
+    /// <summary>
+    /// 添加任意方向的力
+    /// </summary>
+    /// <param name="force"></param>
     public void AddForce(Vector2 force)
     {
         _speed += force;
         _externalForce += force;
     }
 
+    /// <summary>
+    /// 添加水平分量的力
+    /// </summary>
+    /// <param name="x"></param>
     public void AddHorizontalForce(float x)
     {
         _speed.x += x;
         _externalForce.x += x;
     }
 
+    /// <summary>
+    /// 添加竖直分量的力
+    /// </summary>
+    /// <param name="y"></param>
     public void AddVertivalForce(float y)
     {
         _speed.y += y;
         _externalForce.y += y;
     }
 
+    /// <summary>
+    /// 重新设置当前的力
+    /// </summary>
+    /// <param name="force"></param>
     public void SetForce(Vector2 force)
     {
         _speed = force;
         _externalForce = force;
     }
 
+    /// <summary>
+    /// 重新设置水平分量的力
+    /// </summary>
+    /// <param name="x"></param>
     public void SetHorizontalForce(float x)
     {
         _speed.x = x;
         _externalForce.x = x;
     }
 
+    /// <summary>
+    /// 重新设置竖直分量的力
+    /// </summary>
+    /// <param name="y"></param>
     public void SetVerticalForce(float y)
     {
         _speed.y = y;
         _externalForce.y = y;
     }
 
+    // 以上是控制移动的API -----------------------------------------------------------------------
+    # endregion
 
     private void FixedUpdate()
     {
         EveryFrame();
-
-
     }
-
 
     public void EveryFrame()
     {
@@ -203,21 +232,26 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
+        // 先应用重力
         ApplyGravity();
+
+        // 在一帧的最开始进行初始化
         FrameInitialization();
 
+        // 解决站在MovingPlatforms上的逻辑
         HandleMovingPlatforms();
 
+        // 检测是否正在操控机关
         DetectControlAble();
 
+        // 对 上下左右 四个方向进行射线检测，储存检测到的信息
+        // 并计算 _newPostion
         CastRayToLeft();
-       
         CastRayToRight();
-       
         CastRayAbove();
-        
         CastRayBelow();
 
+        //根据射线检测的信息计算这一帧的速度
         ComputeNewSpeed();
 
 
@@ -227,6 +261,7 @@ public class PlayerController : MonoBehaviour
             _newPostion.y = 0;
         }
 
+        // 根据射线检测的计算出来的_newPostion，在这一帧进行移动
         _transform.Translate(_newPostion, Space.Self);
 
         _externalForce.x = 0;
@@ -635,7 +670,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    //单独检测一次有没有接触到controlable的物体
+    // 单独检测一次有没有接触到controlable的物体
     public void DetectControlAble()
     {
         float rayLength = Collider.bounds.extents.x + RayOffsetHorizontal;
@@ -657,6 +692,8 @@ public class PlayerController : MonoBehaviour
             ControlAbleObject = null;
         }
     }
+
+
     public void SetSate()
     {
         //if (State.IsGrounded  && _inputManager.PrimaryMovement.x == 0)

@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// PlayerControllerParameters类 的主要作用是统一储存 PlayerController类会用到的参数，比如说重力大小，下降倍率等。
+/// </summary>
 public class PlayerControllerParameters 
 {
     [Header("Gravity")]

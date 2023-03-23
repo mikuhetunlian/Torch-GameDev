@@ -153,14 +153,7 @@ public class Jump : PlayerAblity
 
 
 
-    /// <summary>
-    /// 重置IsTouchGround参数
-    /// </summary>
-    private void ResetIsTouchGround()
-    {
-        isTouchGround = false;
-    }
-
+    // paperCut 中并没有做跳跃的动画，所以这部分暂时是没有写的
     protected override void InitializeAnimatorParameter()
     {
      

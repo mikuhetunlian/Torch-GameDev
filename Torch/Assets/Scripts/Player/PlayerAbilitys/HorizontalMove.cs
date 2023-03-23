@@ -11,7 +11,7 @@ public class HorizontalMove : PlayerAblity
     [SerializeField]
     private Vector2 _newPostion;
 
-
+    // 水平移动的方向，每一帧从 _horizontalInput 获取
     protected float _horizontalMovement;
     protected float _horizontalMovementForce;
 
@@ -27,8 +27,6 @@ public class HorizontalMove : PlayerAblity
     protected int _tryToTouchAnimatorParameter;
 
 
-
-
     public override void Initialization()
     {
         base.Initialization();
@@ -42,98 +40,6 @@ public class HorizontalMove : PlayerAblity
         _player = GetComponent<Player>();
     }
 
-    private void GetKey(KeyCode key)
-    {
-        switch (key)
-        {
-            case KeyCode.A:
-                if (AbilityPermitted)
-                {
-                    move = true;
-
-                    if (_playerController.State.isCollidingBelow)
-                    {
-                        _movement.ChangeState(PlayerStates.MovementStates.Walking);
-                    }
-
-                    if (!_playerController.State.isCollidingLeft)
-                    {
-                        rbody.velocity = new Vector2(-speed, rbody.velocity.y);
-                    }
-                    else
-                    {
-                        rbody.velocity = new Vector2(0, rbody.velocity.y);
-                        float hitPointX = 0;
-                        foreach (RaycastHit2D info in _playerController.hitInfos[RaycastDirection.Left])
-                        {
-                            if (info.collider != null)
-                            {
-                                hitPointX = info.point.x;
-                            }
-                        }
-                        transform.position = new Vector3(hitPointX + _playerController.Collider.bounds.extents.x, transform.position.y);
-                    }
-                }
-
-                break;
-            case KeyCode.D:
-                if (AbilityPermitted)
-                {
-                    move = true;
-                    if (_playerController.State.isCollidingBelow)
-                    {
-                        _movement.ChangeState(PlayerStates.MovementStates.Walking);
-                    }
-                    if (!_playerController.State.isCollidingRight)
-                    {
-                        rbody.velocity = new Vector2(speed, rbody.velocity.y);
-                    }
-                    else
-                    {
-                        rbody.velocity = new Vector2(0, rbody.velocity.y);
-                        float hitPointX = 0;
-                        foreach (RaycastHit2D info in _playerController.hitInfos[RaycastDirection.Right])
-                        {
-                            if (info.collider != null)
-                            {
-                                hitPointX = info.point.x;
-                            }
-                        }
-                        transform.position = new Vector3(hitPointX - _playerController.Collider.bounds.extents.x, transform.position.y);
-                    }
-                }
-
-                break;
-        }
-    }
-
-    private void GetKeyUp(KeyCode key)
-    {
-        if (AbilityPermitted)
-        {
-            switch (key)
-            {
-                case KeyCode.A:
-                    move = false;
-                    if (_playerController.State.isCollidingBelow)
-                    {
-                        _movement.ChangeState(PlayerStates.MovementStates.Idle);
-                    }
-                    rbody.velocity = new Vector2(0, rbody.velocity.y);
-                    break;
-                case KeyCode.D:
-                    move = false;
-                    if (_playerController.State.isCollidingBelow)
-                    {
-                        _movement.ChangeState(PlayerStates.MovementStates.Idle);
-                    }
-                    rbody.velocity = new Vector2(0, rbody.velocity.y);
-                    break;
-            }
-        }
-
-    }
-
 
     public override void PermitAbility(bool abilityPermitted)
     {
@@ -143,53 +49,14 @@ public class HorizontalMove : PlayerAblity
     public override void HandleInput()
     {
         _horizontalMovement = _horizontalInput;
-
     }
 
 
     public override void ProcessAbility()
-    {
-        //SetFacingDir()
-      
+    {      
         HorizontalMovement();
     }
 
-
-    protected void LeftPressed()
-    {
-        _playerController.SetHorizontalForce(-speed);
-    }
-
-    protected void LeftUp()
-    {
-        _playerController.SetHorizontalForce(0);
-    }
-
-    protected void RightPressed()
-    {
-        _playerController.SetHorizontalForce(speed);
-    }
-
-    protected void RightUp()
-    {
-        _playerController.SetHorizontalForce(0);
-    }
-
-
-    /// <summary>
-    /// 检测当前的朝向
-    /// </summary>
-    protected void SetFacingDir()
-    {
-        if (_horizontalMovement > 0)
-        {
-            facingDir = Player.FacingDirections.Right;
-        }
-        if (_horizontalMovement < 0) 
-        {
-            facingDir = Player.FacingDirections.Left;
-        }
-    }
 
     /// <summary>
     /// 根据input输入来 改变 newPostion 的 x分量值
@@ -207,11 +74,12 @@ public class HorizontalMove : PlayerAblity
                 && _movement.CurrentState != PlayerStates.MovementStates.Jumping //不在跳跃
                )
             {
+                // 如果玩家在水平移动，改变 PlayerStates
                 if (_horizontalMovement != 0)
                 {
                     _movement.ChangeState(PlayerStates.MovementStates.Walking);
                 }
-                else
+                else // 如果水平速度为0，改变 PlayerStates
                 {
                     _movement.ChangeState(PlayerStates.MovementStates.Idle);
                        
@@ -226,6 +94,7 @@ public class HorizontalMove : PlayerAblity
             else
             {
                 Debug.Log("水平移动速度" + _horizontalMovement);
+                // 不在 推 或 拉 的时候，自己的移动速度不改变
                 _playerController.SetHorizontalForce(_horizontalMovement * speed);
             }
 
@@ -233,25 +102,8 @@ public class HorizontalMove : PlayerAblity
        
     }
 
-    /// <summary>
-    /// 获得射线检测触碰到的点的x坐标
-    /// </summary>
-    /// <param name="dir"></param>
-    /// <returns></returns>
-    protected float GetHitPointX(RaycastDirection dir)
-    {
-        float hitPointX = 0;
-        foreach (RaycastHit2D info in _playerController.hitInfos[dir])
-        {
-            if (info.collider != null)
-            {
-                hitPointX = info.point.x;
-            }
-        }
-        return hitPointX;
-    }
 
-  
+    // 下面是动画参数的初始化和控制
 
     protected override void InitializeAnimatorParameter()
     {
@@ -272,7 +124,6 @@ public class HorizontalMove : PlayerAblity
         {
             AnimatorHelper.UpdateAnimatorBool(_animator, _walkAniamtorParameter, false, _player._animatorParameters);
         }
-
 
 
         if (!_touch.CanTouch)

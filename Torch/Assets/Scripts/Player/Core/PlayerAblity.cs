@@ -30,6 +30,7 @@ public class PlayerAblity :MonoBehaviour
         GetComponents();
         Initialization();
     }
+
     /// <summary>
     /// ability 初始化数据和其他一些开关
     /// </summary>
@@ -37,6 +38,7 @@ public class PlayerAblity :MonoBehaviour
     {
         
     }
+
     /// <summary>
     /// ability 获得想要获得的组件
     /// </summary>
@@ -59,17 +61,20 @@ public class PlayerAblity :MonoBehaviour
 
 
     /// <summary>
-    /// ability使用的开关
+    /// 控制Ablity是否启用
     /// </summary>
     /// <param name="abilityPermitted"></param>
     public virtual void PermitAbility(bool abilityPermitted)
     {
         AbilityPermitted = abilityPermitted;
-
     }
 
 
-
+    /// <summary>
+    /// 在EarlyProcessAblity调用
+    /// _horizontalInput代表水平键的值，_verticalInput代表竖直键的值
+    /// _horizontalInput 和 _verticalInput 都从 _inputManager 中获取
+    /// </summary>
     public virtual void InternalHandleInput()
     {
         if (_inputManager == null) { return; }
@@ -87,20 +92,28 @@ public class PlayerAblity :MonoBehaviour
         
     }
 
-    //ability的第一段
+    /// <summary>
+    /// 逻辑上的Ablity的第一段，可以类比为EarlyUpdate（虽然EarlyUpdate是不存在的）
+    /// </summary>
     public virtual void EarlyProcessAblity()
     {
         //每个ability先获取input信息再进行逻辑处理
         InternalHandleInput();
     }
 
-    //ability的第二段
+    /// <summary>
+    /// 逻辑上的Ablity的第二段，可以类比为Update
+    /// ablity逻辑要在 InternalHandleInput 后调用
+    /// </summary>
     public virtual void ProcessAbility()
     {
         
     }
 
-    //abilitty的第三段
+    /// <summary>
+    /// 逻辑上的Ablity的第三段，可以类比为LateUpdate
+    /// ablity逻辑要在 InternalHandleInput 后调用
+    /// </summary>
     public virtual void LateProcessAbility()
     {
 
@@ -117,9 +130,6 @@ public class PlayerAblity :MonoBehaviour
     }
 
 
-
-
-
     /// <summary>
     /// 重写这个方法，添加自己ability需要处理的animator的参数到Player的_animatorParameters中
     /// 在 awake 的 GetComponents 中会调用这个方法
@@ -129,11 +139,16 @@ public class PlayerAblity :MonoBehaviour
         
     }
 
+
+
+
     /// <summary>
     /// 如果animator中存在这个参数，就把它添加到Player的 _animatorParameters 中
     /// </summary>
-    /// <param name="parameterName"></param>
-    /// <param name="type"></param>
+    /// <param name="parameterName">要更新的状态参数名</param>
+    /// <param name="type">要更新的状态参数类型</param>
+    /// <param name="parameter">传进一个参数，这个参数代表的是parameterName的哈希值，
+    /// 目的是把string的参数转化为int参数，在动画状态机很大的情况下也能减少存储空间</param>
     protected virtual void RegisterAnimatorParameter(string parameterName, AnimatorControllerParameterType type,out int parameter)
     {
         parameter = Animator.StringToHash(parameterName);

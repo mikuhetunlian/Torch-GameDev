@@ -4,7 +4,8 @@ using UnityEngine;
 
 
 /// <summary>
-/// 设置Animator的helper类
+/// AnimatorHelper类 封装了一些用来访问和操控 Animator 的方法
+/// 目前只支持 更新 bool类型 的 状态关系
 /// </summary>
 public class AnimatorHelper 
 {
@@ -39,9 +40,6 @@ public class AnimatorHelper
         }
 
     }
-
-
-
 
 
     
