@@ -24,7 +24,7 @@ public class TorchHolder : MonoBehaviour
             // º§ªÓplayer
             playerObj.SetActive(true);
             PlayerController playerController = playerObj.GetComponent<PlayerController>();
-            playerController.SetForce(Vector2.up * 5);
+            playerController.SetForce(Vector2.up * 20);
 
             //…Ë÷√camera follow player
             CameraMgr.GetInstance().ChangeFollow(playerObj.transform);

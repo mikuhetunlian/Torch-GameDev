@@ -19,7 +19,12 @@ public class UIMgr : BaseManager<UIMgr>
     
     public Dictionary<string,BasePanel> panelDic = new Dictionary<string,BasePanel>();
 
-    private Transform Canvas;
+
+    protected GameObject canvasObj;
+    protected GameObject eventObj;
+
+    private Transform CanvasTransform;
+    private Transform EventTransform;
 
     public UIMgr()
     {
@@ -28,17 +33,26 @@ public class UIMgr : BaseManager<UIMgr>
 
 
 
-        //GameObject canvasObj = ResMgr.GetInstance().LoadRes<GameObject>("UI/Canvas");
-        //canvasObj.name = "Canvas";
-        //GameObject.DontDestroyOnLoad(canvasObj);
-        
+        //canvasObj = ResMgr.GetInstance().LoadRes<GameObject>("UI/Canvas");
+        canvasObj = GameObject.Find("Canvas");
+        if (canvasObj != null)
+        {
+            canvasObj.name = "Canvas";
+            CanvasTransform = canvasObj.transform;
+            GameObject.DontDestroyOnLoad(canvasObj);
+        }
+
+        //eventObj = ResMgr.GetInstance().LoadRes<GameObject>("UI/EventSystem");
+        eventObj = GameObject.Find("EventSystem");
+        if (eventObj != null)
+        {
+            eventObj.name = "EventSystem";
+            EventTransform = eventObj.transform;
+            GameObject.DontDestroyOnLoad(eventObj);
+        }
+     
         //如果场景中自带Canvas和EventSytem的话，那就直接找到就行了
-         Canvas = GameObject.Find("Canvas").transform;
-
-
-        //GameObject eventObj = ResMgr.GetInstance().LoadRes<GameObject>("UI/EventSystem");
-        //eventObj.name = "EventSystem";
-        //GameObject.DontDestroyOnLoad(eventObj);
+        //Canvas = GameObject.Find("Canvas").transform;
     }
 
 
@@ -54,7 +68,7 @@ public class UIMgr : BaseManager<UIMgr>
         //GameObject panel =  ResMgr.GetInstance().LoadRes<GameObject>("UI/panel/" + panelName);
 
 
-        GameObject panel = GameObject.Instantiate(Resources.Load("UI/panel/" + panelName)) as GameObject;
+        GameObject panel = GameObject.Instantiate(Resources.Load("UI/Panel/" + panelName)) as GameObject;
 
         
 
@@ -62,15 +76,15 @@ public class UIMgr : BaseManager<UIMgr>
         Debug.Log("成功加载了" + panel.name + "对象");
 
         //放到对应的canvas层级下
-        if (Canvas == null)
+        if (CanvasTransform == null)
         {
-            Canvas = GameObject.Find("Canvas").transform;
+            CanvasTransform = GameObject.Find("Canvas").transform;
         }
-        panel.transform.parent = Canvas;
+        panel.transform.parent = CanvasTransform;
 
         //设置相对Canvas的位置和自己panel的缩放
         panel.transform.localPosition = Vector3.zero;
-        panel.transform.localScale = Vector3.one;
+        panel.transform.localScale = Vector3.one * 1.01f;
         //设置屏幕大小自适应的 up = 0 和 down = 0
         (panel.transform as RectTransform).offsetMax = Vector2.zero;
         (panel.transform as RectTransform).offsetMin = Vector2.zero;

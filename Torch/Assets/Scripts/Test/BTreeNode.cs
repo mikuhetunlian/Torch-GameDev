@@ -9,20 +9,21 @@ public class BTreeNode : Action
     [BehaviorDesigner.Runtime.Tasks.Tooltip("this is a speed")]
     public float speed;
     public string name;
-    public GameObject target;
+
+
+    public SharedTransform target;
 
 
     public override void OnAwake()
     {
-        gameObject = this.gameObject;
         
     }
+
 
     public override TaskStatus OnUpdate()
     {
         Debug.Log("自定义的Node DesuYo");
-        Debug.Log(gameObject.name);
-        Debug.Log(target.name);
+        Debug.Log( "Node1" + target.Value.gameObject.name.ToString());
         return TaskStatus.Success;
     }
 }
