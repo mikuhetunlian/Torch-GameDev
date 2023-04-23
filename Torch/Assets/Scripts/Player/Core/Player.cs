@@ -77,7 +77,7 @@ public class Player : MonoBehaviour
         EveryFrame();
     }
 
-    //在FixUpdate中执行，相对独立一些
+    // 在FixUpdate中执行，相对独立一些
     public void EveryFrame()
     {
         EarlyProcessAbilitys();

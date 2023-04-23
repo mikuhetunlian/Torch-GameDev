@@ -9,10 +9,16 @@ public class PlayerStates
 {
     public enum PlayerConditions
     {
-        Normal,//无操作
-        Move,//移动中
-        Forzen,//被冰冻
-        Dead,//死亡
+        Normal,// 无操作
+        Move,// 移动中
+        Forzen,// 被冰冻
+        Dead,// 死亡
+        Invincibility,// 无敌帧
+
+
+
+
+
     }
 
 
