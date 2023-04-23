@@ -17,6 +17,9 @@ public static class  LayerMgr
     public static int LadderLayer = 8;
     public static int BackgroundLayer = 9;
     public static int PushableLayer = 10;
+    public static int SpikeLyaer = 13;
+    public static int Metrorrhagia = 14;
+
 
     //layerMask
     public static int PlayerLayerMask = 1 << PlayerLayer;
@@ -26,6 +29,8 @@ public static class  LayerMgr
     public static int LadderLayerMask = 1 << LadderLayer;
     public static int PushableLayerMask = 1 << PushableLayer;
     public static int MovingPlatformLayerMask = 1 << MovingPlatformLayer;
+    public static int SpikeLyaerMask = 1 << SpikeLyaer;
+    public static int MetrorrhagiaMask = 1 << Metrorrhagia;
 
     //可以被射线检测阻挡的layerMask
     public static int ObstaclesLayerMask = PlatformLayerMask | OneWayPlatformLayerMask | OneWayMovingPlatformLayerMask;

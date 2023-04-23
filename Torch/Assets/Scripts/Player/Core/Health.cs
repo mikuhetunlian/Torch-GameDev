@@ -76,7 +76,7 @@ public class Health : MonoBehaviour
         GameObject blood = GameObject.Instantiate(Resources.Load("Prefab/leafBlood")) as GameObject;
             /*ResMgr.GetInstance().LoadRes<GameObject>("Prefab/leafBlood")*/;
         blood.transform.position = this.gameObject.transform.position;
-        //获得blood的动画长度
+        // 获得blood的动画长度
         Animator  animator = blood.GetComponent<Animator>();
         AnimatorClipInfo[] infos  = animator.GetCurrentAnimatorClipInfo(0);
         float delayTime = 0;
