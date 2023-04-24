@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class BasePanel : MonoBehaviour
 {
@@ -16,6 +17,12 @@ public class BasePanel : MonoBehaviour
     public List<Image> imgList;
     public float fadeTime;
 
+
+    public EventSystem eventSystem;
+
+
+
+
     /// <summary>
     /// 所有面板在Awake的时候会自动寻找面板上存在的组件,减少手动拖曳的工作量,默认寻找Button和Text组件
     /// </summary>
@@ -25,6 +32,8 @@ public class BasePanel : MonoBehaviour
         FindChildrenControls<Text>();
         //为text注册事件
         TextOnClick();
+
+        eventSystem = GameObject.Find("EventSystem").GetComponent<EventSystem>();
     }
 
     //展示面板

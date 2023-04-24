@@ -21,8 +21,8 @@ public class InputManager : SingeltonAutoManager<InputManager>
 
     public InputHelper.IMButton LeftMove { get; protected set; }
     public InputHelper.IMButton RightMove { get; protected set; }
-    public InputHelper.IMButton JumpButton { get;  set; }
-    public InputHelper.IMButton ControlButton { get;  set; }
+    public InputHelper.IMButton JumpButton { get; set; }
+    public InputHelper.IMButton ControlButton { get; set; }
 
     protected void Start()
     {
@@ -41,7 +41,7 @@ public class InputManager : SingeltonAutoManager<InputManager>
 
         ButtonList.Add(JumpButton = new InputHelper.IMButton(playerID, "Jump", JumpButtonDown, JumpButtonPresswd, JumpButtonUp));
         ButtonList.Add(ControlButton = new InputHelper.IMButton(playerID, "Control", ControlButtonDown, ControlButtonPresswd, ControlButtonUp));
-    
+
     }
 
     /// <summary>
@@ -59,7 +59,7 @@ public class InputManager : SingeltonAutoManager<InputManager>
         {
             ProcessButtonStates();
         }
-        else 
+        else
         {
             ResetButtonState();
         }
@@ -70,13 +70,13 @@ public class InputManager : SingeltonAutoManager<InputManager>
         if (InputDetectionActive)
         {
 
-                SetMovement();
-                SetButtons();
+            SetMovement();
+            SetButtons();
 
         }
         else
         {
-                ResetMovement();
+            ResetMovement();
         }
     }
 
@@ -85,7 +85,7 @@ public class InputManager : SingeltonAutoManager<InputManager>
     /// </summary>
     public void SetMovement()
     {
-        
+
         if (SmoothMovement)
         {
             _primaryMovement.x = Input.GetAxis(_axisHorizontal);
@@ -104,8 +104,8 @@ public class InputManager : SingeltonAutoManager<InputManager>
     /// 提供给移动UI设置水平移动速度
     /// </summary>
     /// <param name="movement"></param>
-    public void SetMovementMobile(int x,int y)
-    { 
+    public void SetMovementMobile(int x, int y)
+    {
         _primaryMovement.x = x;
         _primaryMovement.y = y;
     }
@@ -175,7 +175,27 @@ public class InputManager : SingeltonAutoManager<InputManager>
         //在下一次cycle的 update 和 lateUpdate之间执行
         yield return null;
         button.State.ChangeState(InputHelper.ButtonState.ButtonPressed);
+
     }
+
+    public void DisabeMouseInput()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+        Input.simulateMouseWithTouches = false;
+        Debug.Log("禁止了鼠标输入");
+    }
+
+    public void EnableMouseInput()
+    {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+        Input.simulateMouseWithTouches = true;
+    }
+
+
+
+
 
     public void JumpButtonDown() { JumpButton.State.ChangeState(InputHelper.ButtonState.ButtonDown); }
     public void JumpButtonPresswd() { JumpButton.State.ChangeState(InputHelper.ButtonState.ButtonPressed); }

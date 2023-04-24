@@ -193,19 +193,24 @@ public class Player : MonoBehaviour
     }
 
 
+
     /// <summary>
-    /// 根据 transform.localScale.x 的正负来调整 CurrentFaceingDir
+    /// 设置转向和状态
     /// </summary>
     public void UpdateFaceDirection()
     {
-        if (transform.localScale.x > 0)
+
+        if (LinkedInputManager.PrimaryMovement.x > 0)
         {
+            transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
             CurrentFaceingDir = FacingDirections.Right;
         }
-        else
+        if (LinkedInputManager.PrimaryMovement.x < 0)
         {
+            transform.localScale = new Vector3(-Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
             CurrentFaceingDir = FacingDirections.Left;
         }
+
     }
 
     /// <summary>
