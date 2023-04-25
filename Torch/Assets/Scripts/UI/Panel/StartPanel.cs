@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using UnityEngine.Events;
 
 public class StartPanel : BasePanel
 {
@@ -10,6 +11,8 @@ public class StartPanel : BasePanel
     public Button btnStart;
     public Button btnExit;
     public Button btnSet;
+
+    public Image fadeImage;
 
     protected GameObject lastSelectGameObject;
 
@@ -22,8 +25,10 @@ public class StartPanel : BasePanel
         btnExit.onClick.AddListener(BtnExitOnClick);
         btnSet.onClick.AddListener(BtnSetOnClick);
 
-     
         InputManager.GetInstance().DisabeMouseInput();
+
+        ExcuteFade(1, 0, 0.5f);
+
     }
 
 
@@ -55,8 +60,11 @@ public class StartPanel : BasePanel
 
     protected void BtnStartOnClick()
     {
-        Debug.Log("¼ÓÔØfirst");
-        SceneMgr.GetInstance().LoadScene("First");
+        ExcuteFade(0, 1,0, () =>
+        {
+            SceneMgr.GetInstance().LoadScene("First");
+        });
+     
     }
 
     protected void BtnExitOnClick()
@@ -74,5 +82,7 @@ public class StartPanel : BasePanel
     }
 
 
+
+ 
 
 }

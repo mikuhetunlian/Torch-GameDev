@@ -168,6 +168,22 @@ public class BasePanel : MonoBehaviour
        
     }
 
+
+
+    /// <summary>
+    /// 调用Fade的接口
+    /// </summary>
+    /// <param name="orginAlpha"></param>
+    /// <param name="targetAlpha"></param>
+    /// <param name="waitTime"></param>
+    /// <param name="callback"></param>
+    protected void ExcuteFade(float orginAlpha, float targetAlpha, float waitTime = 0, UnityAction callback = null)
+    {
+        StartCoroutine(Fade(orginAlpha, targetAlpha, waitTime, callback));
+    }
+
+
+
     /// <summary>
     /// 默认自带一个淡入淡出的协程
     /// </summary>
@@ -175,8 +191,13 @@ public class BasePanel : MonoBehaviour
     /// <param name="targetAlpha">目标Alpha</param>
     /// <param name="callBack">结束Fade后的回调，默认为null</param>
     /// <returns></returns>
-    protected virtual IEnumerator Fade(float originAlpha, float targetAlpha, UnityAction callBack = null)
+    protected virtual IEnumerator Fade(float originAlpha, float targetAlpha,float waitTime = 0, UnityAction callBack = null)
     {
+
+        yield return new WaitForSecondsRealtime(waitTime);
+
+        Debug.Log("fadetime是" + fadeTime);
+
         float t = 0;
         Color color = imgList[0].color;
         while (t <= fadeTime)
@@ -194,6 +215,7 @@ public class BasePanel : MonoBehaviour
         {
             img.color = new Color(color.r, color.g, color.b, targetAlpha);
         }
+
         callBack?.Invoke();
     }
 
