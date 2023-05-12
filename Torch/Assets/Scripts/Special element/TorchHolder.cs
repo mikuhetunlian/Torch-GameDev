@@ -6,12 +6,9 @@ public class TorchHolder : MonoBehaviour
 {
 
     public GameObject playerObj;
-    protected SpriteRenderer _spriteRenderer;
+    public GameObject fire;
 
-    void Start()
-    {
-        _spriteRenderer = GetComponent<SpriteRenderer>();
-    }
+
 
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -19,7 +16,7 @@ public class TorchHolder : MonoBehaviour
         if (collision.gameObject.tag.Equals("ShootFire"))
         {
             Destroy(collision.gameObject);
-            _spriteRenderer.color = Color.red;
+            fire.SetActive(true);
 
             // ¼¤»îplayer
             playerObj.SetActive(true);

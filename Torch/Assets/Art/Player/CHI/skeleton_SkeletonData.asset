@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: skeleton_SkeletonData
   m_EditorClassIdentifier: 
   atlasAssets:
-  - {fileID: 11400000, guid: 8622e51d40fd8724ab6d2775c896aa52, type: 2}
+  - {fileID: 11400000, guid: 006181b3a91eae54b9f980ed92031ef6, type: 2}
   scale: 0.01
-  skeletonJSON: {fileID: 4900000, guid: 84abffd8f30bb9e4688642634bffa6e1, type: 3}
+  skeletonJSON: {fileID: 4900000, guid: 1278618d8aaf53849b6b5f69fc340f6e, type: 3}
   isUpgradingBlendModeMaterials: 0
   blendModeMaterials:
     requiresBlendModeMaterials: 0
@@ -28,4 +28,4 @@ MonoBehaviour:
   toAnimation: []
   duration: []
   defaultMix: 0.2
-  controller: {fileID: 9100000, guid: 7273b464b02dd46499b28fc6c13ec664, type: 2}
+  controller: {fileID: 0}
