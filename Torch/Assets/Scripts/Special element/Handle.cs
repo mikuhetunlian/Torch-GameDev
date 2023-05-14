@@ -27,11 +27,13 @@ public class Handle : MonoBehaviour
             if(Input.GetKey(KeyCode.W))
             {
                 MoveSlicePoint(Vector2.up, speed);
+                this.transform.Rotate(Vector3.forward, 100 * Time.deltaTime);
             }
 
             if (Input.GetKey(KeyCode.S))
             {
                 MoveSlicePoint(Vector2.down, speed);
+                this.transform.Rotate(Vector3.forward, -100 * Time.deltaTime);
             }
 
             if (InputManager.GetInstance().ControlButton.State.CurrentState == InputHelper.ButtonState.ButtonDown)

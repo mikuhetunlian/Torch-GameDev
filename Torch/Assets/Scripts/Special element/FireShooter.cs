@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cinemachine;
 
 public class FireShooter : MonoBehaviour
 {
@@ -9,7 +10,7 @@ public class FireShooter : MonoBehaviour
 
     protected CircleCollider2D _circleCollider;
     protected float _shootFireVcOrginOrthoSize;
-
+    protected bool hasGetCameraSize;
 
     void Start()
     {
@@ -19,13 +20,28 @@ public class FireShooter : MonoBehaviour
     protected void Initialization()
     {
         _circleCollider = GetComponent<CircleCollider2D>();
-        _shootFireVcOrginOrthoSize = CameraMgr.GetInstance().GetCurrentActiveCamera().m_Lens.OrthographicSize;
+         CinemachineVirtualCamera camera = CameraMgr.GetInstance().GetCurrentActiveCamera();
+        if (camera != null)
+        {
+            _shootFireVcOrginOrthoSize = camera.m_Lens.OrthographicSize;
+            hasGetCameraSize = true;
+        }
         if (cameraMagnification == 0)
         {
             cameraMagnification = 1;
         }
     }
-    
+
+    private void Update()
+    {
+        CinemachineVirtualCamera camera = CameraMgr.GetInstance().GetCurrentActiveCamera();
+        if (camera != null && !hasGetCameraSize)
+        {
+            _shootFireVcOrginOrthoSize = camera.m_Lens.OrthographicSize;
+            hasGetCameraSize = true;
+        }
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.tag.Equals("ShootFire"))

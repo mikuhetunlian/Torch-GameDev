@@ -6,10 +6,12 @@ using Cinemachine;
 
 public class RotateRock : MonoBehaviour
 {
-    protected static float _shootFireVcOrginSize;
+    public static float _shootFireVcOrginSize;
     protected CircleCollider2D _circleCollider;
     protected Rigidbody2D _rbody;
     protected AutoRotate _autoRotate;
+
+    protected bool hasGetCameraSize =false; 
 
     void Start()
     {
@@ -23,8 +25,25 @@ public class RotateRock : MonoBehaviour
         _rbody = this.gameObject.AddComponent<Rigidbody2D>();
         _rbody.bodyType = RigidbodyType2D.Kinematic;
 
-        _shootFireVcOrginSize = CameraMgr.GetInstance().GetCurrentActiveCamera().m_Lens.OrthographicSize;
+        CinemachineVirtualCamera camera = CameraMgr.GetInstance().GetCurrentActiveCamera();
+        if (camera != null)
+        {
+            _shootFireVcOrginSize = camera.m_Lens.OrthographicSize;
+            hasGetCameraSize = true;
+        }
 
+
+    }
+
+
+    private void Update()
+    {
+        CinemachineVirtualCamera camera = CameraMgr.GetInstance().GetCurrentActiveCamera();
+        if (camera != null && !hasGetCameraSize)
+        {
+            _shootFireVcOrginSize = camera.m_Lens.OrthographicSize;
+            hasGetCameraSize = true;
+        }
     }
 
 

@@ -25,7 +25,7 @@ public class CameraMgr : BaseManager<CameraMgr>
     }
 
     /// <summary>
-    /// 或许当前被激活的VirtualCamera
+    /// 获取当前被激活的VirtualCamera
     /// </summary>
     /// <returns></returns>
     public CinemachineVirtualCamera GetCurrentActiveCamera()
@@ -71,7 +71,10 @@ public class CameraMgr : BaseManager<CameraMgr>
     public void ChangeFollow(Transform followTarget)
     {
         CinemachineVirtualCamera currentCamera = GetCurrentActiveCamera();
-        currentCamera.Follow = followTarget;
+        if (currentCamera != null)
+        {
+            currentCamera.Follow = followTarget;
+        }
     }
 
 

@@ -1,0 +1,55 @@
+
+skeleton.png
+size: 2048,2048
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+冰块
+  rotate: false
+  xy: 0, 1494
+  size: 530, 160
+  orig: 530, 160
+  offset: 0, 0
+  index: -1
+破碎冰块1
+  rotate: true
+  xy: 1436, 1527
+  size: 127, 113
+  orig: 128, 114
+  offset: 0, 0
+  index: -1
+破碎冰块2
+  rotate: false
+  xy: 1093, 1518
+  size: 204, 136
+  orig: 205, 136
+  offset: 0, 0
+  index: -1
+破碎冰块3
+  rotate: true
+  xy: 1551, 1522
+  size: 132, 103
+  orig: 132, 103
+  offset: 0, 0
+  index: -1
+破碎冰块4
+  rotate: false
+  xy: 532, 1494
+  size: 302, 160
+  orig: 302, 160
+  offset: 0, 0
+  index: -1
+破碎冰块5
+  rotate: false
+  xy: 836, 1494
+  size: 255, 160
+  orig: 257, 160
+  offset: 1, 0
+  index: -1
+破碎冰块6
+  rotate: false
+  xy: 1299, 1494
+  size: 135, 160
+  orig: 137, 160
+  offset: 0, 0
+  index: -1
