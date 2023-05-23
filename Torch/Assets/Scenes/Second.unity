@@ -537,7 +537,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9db98c60740638449864eb028fbe7ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skeletonDataAsset: {fileID: 11400000, guid: 57e8224c1dd69284593fcaab06bfc874, type: 2}
+  skeletonDataAsset: {fileID: 11400000, guid: 97a0bff02593ae04184f5884c0b59f9f, type: 2}
   initialSkinName: 
   initialFlipX: 0
   initialFlipY: 0
@@ -574,7 +574,7 @@ Animator:
   m_GameObject: {fileID: 341237916}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: e334eec6ade2d754891af7fb05eb5c8c, type: 2}
+  m_Controller: {fileID: 9100000, guid: 6e29a8d13f4a00e46881b9f9eaf70cf5, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -604,7 +604,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a34cbc57ad6da9b418bdb4f359b98dba, type: 2}
+  - {fileID: 2100000, guid: acc968dbf057af447966938c0c9c6cc2, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1634,6 +1634,10 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 8928266848747240340, guid: 3c7fff44b7d16214b8e2df4699892e84, type: 3}
+      propertyPath: skeletonDataAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: e3137906cc933ab42a1279e61b1607c0, type: 2}
     - target: {fileID: 8928266848747240341, guid: 3c7fff44b7d16214b8e2df4699892e84, type: 3}
       propertyPath: m_Name
       value: 'player '
@@ -1642,6 +1646,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8928266848747240342, guid: 3c7fff44b7d16214b8e2df4699892e84, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 8eaccd95f49435c4eade309373e2ccfd, type: 2}
     - target: {fileID: 8928266848747240343, guid: 3c7fff44b7d16214b8e2df4699892e84, type: 3}
       propertyPath: m_Controller
       value: 
@@ -1760,6 +1768,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 584c9bfc543e577498ce3c8e5b89a4b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weaponHealth: 100
+  attackMode: 0
 --- !u!1 &1975618753
 GameObject:
   m_ObjectHideFlags: 0
