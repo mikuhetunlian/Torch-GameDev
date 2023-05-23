@@ -1,4 +1,4 @@
-using System.Collections;
+锘縰sing System.Collections;
 using UnityEngine.Events;
 using System.Collections.Generic;
 using UnityEngine;
@@ -25,10 +25,10 @@ public class Health_new : MonoBehaviour
     {
         
         currentHp -= damage;
-        Debug.Log("当前的HP值：" + currentHp);
-        /*if (currentHp <= 0)
+        action?.Invoke();
+        if (currentHp <= 0)
         {
             Destroy(gameObject);
-        }*/
+        }
     }
 }

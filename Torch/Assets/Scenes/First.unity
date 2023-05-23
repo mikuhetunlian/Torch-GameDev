@@ -4522,8 +4522,8 @@ MonoBehaviour:
         byteData: 
         byteDataArray: 
       Version: 1.7.3
-  gizmoViewMode: 2
-  showBehaviorDesignerGizmo: 1
+  gizmoViewMode: 0
+  showBehaviorDesignerGizmo: 0
 --- !u!212 &1108288988
 SpriteRenderer:
   m_ObjectHideFlags: 0

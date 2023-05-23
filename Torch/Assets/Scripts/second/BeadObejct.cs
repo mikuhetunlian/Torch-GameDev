@@ -1,10 +1,10 @@
-using System;
+ï»¿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 /**
- * Õâ¸öÀàÊÇÓÃÀ´¶ÔË®µÎÂß¼­½øĞĞ¿ØÖÆ
+ * è¿™ä¸ªç±»æ˜¯ç”¨æ¥å¯¹æ°´æ»´é€»è¾‘è¿›è¡Œæ§åˆ¶
  */
 
 public class BeadObejct : MonoBehaviour
@@ -14,12 +14,12 @@ public class BeadObejct : MonoBehaviour
     public void Start()
     { 
      
-        Debug.Log("kaishi jishi");
+        
     }
 
     public void FixedUpdate()
     {
-        // ¿ªÆôÑÓÊ±º¯Êı
+        // å¼€å¯å»¶æ—¶å‡½æ•°
 
     }
 
@@ -29,23 +29,22 @@ public class BeadObejct : MonoBehaviour
         {
             Destroy(this.gameObject);
             if (collision.gameObject.tag.Equals("Player")) {
-                // »ñµÃÖ÷½ÇµÄ¶ÔÏó
+                // è·å¾—ä¸»è§’çš„å¯¹è±¡
                 Player player = collision.gameObject.GetComponent<Player>();
-                // ¸ü¸ÄÖ÷½ÇµÄ×´Ì¬Îª±ù¶³
+                // æ›´æ”¹ä¸»è§’çš„çŠ¶æ€ä¸ºå†°å†»
                 player.Condition.ChangeState(PlayerStates.PlayerConditions.Forzen);
-                // »ñÈ¡Ö÷½ÇµÄ¿ØÖÆÆ÷
+                // è·å–ä¸»è§’çš„æ§åˆ¶å™¨
                 PlayerController controller = collision.gameObject.GetComponent<PlayerController>();
-                // ¹Ø±ÕÎïÌåµÄÔË¶¯×´Ì¬
+                // å…³é—­ç‰©ä½“çš„è¿åŠ¨çŠ¶æ€
                 controller.SetForce(Vector2.zero);
-
-                // ½ûÖ¹ÓÃ»§µÄÊäÈë£¬ÒÔ´Ë´ïµ½±ù¶³µÄĞ§¹û
+                // ç¦æ­¢ç”¨æˆ·çš„è¾“å…¥ï¼Œä»¥æ­¤è¾¾åˆ°å†°å†»çš„æ•ˆæœ
                 InputManager.GetInstance().InputDetectionActive = false;
-                // ´´½¨¶¨Ê±Æ÷µÄÊµÀı£¬µ÷ÓÃSetTimer·½·¨
+                // åˆ›å»ºå®šæ—¶å™¨çš„å®ä¾‹ï¼Œè°ƒç”¨SetTimeræ–¹æ³•
                 Timer.GetInstance().SetTimer(2, () =>
                 {
-                    // ¸ü¸ÄÖ÷½ÇµÄ×´Ì¬ÎªÕı³£
+                    // æ›´æ”¹ä¸»è§’çš„çŠ¶æ€ä¸ºæ­£å¸¸
                     player.Condition.ChangeState(PlayerStates.PlayerConditions.Normal);
-                    // ÔÊĞíÓÃ»§ÊäÈë
+                    // å…è®¸ç”¨æˆ·è¾“å…¥
                     InputManager.GetInstance().InputDetectionActive = true;
 
                 });

@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -28,10 +28,10 @@ public class UIMgr : BaseManager<UIMgr>
 
     public UIMgr()
     {
-        //ÔÚµ÷ÓÃGetInstanceµÄÊ±ºòÕÒµ½canvasµÄTransform ,²¢ÈÃÆäÔÚÇĞ»»³¡¾°µÄÊ±ºò²»ÒÆ³ı
-        //ResMgrÖĞÈç¹ûÊÇ¼ÓÔØGameObjectµÄ»°Ö±½Ó·µ»ØµÄ¾ÍÊÇGameObject
+        //åœ¨è°ƒç”¨GetInstanceçš„æ—¶å€™æ‰¾åˆ°canvasçš„Transform ,å¹¶è®©å…¶åœ¨åˆ‡æ¢åœºæ™¯çš„æ—¶å€™ä¸ç§»é™¤
+        //ResMgrä¸­å¦‚æœæ˜¯åŠ è½½GameObjectçš„è¯ç›´æ¥è¿”å›çš„å°±æ˜¯GameObject
 
-
+    
 
         //canvasObj = ResMgr.GetInstance().LoadRes<GameObject>("UI/Canvas");
         canvasObj = GameObject.Find("Canvas");
@@ -51,12 +51,12 @@ public class UIMgr : BaseManager<UIMgr>
             GameObject.DontDestroyOnLoad(eventObj);
         }
      
-        //Èç¹û³¡¾°ÖĞ×Ô´øCanvasºÍEventSytemµÄ»°£¬ÄÇ¾ÍÖ±½ÓÕÒµ½¾ÍĞĞÁË
+        //å¦‚æœåœºæ™¯ä¸­è‡ªå¸¦Canvaså’ŒEventSytemçš„è¯ï¼Œé‚£å°±ç›´æ¥æ‰¾åˆ°å°±è¡Œäº†
         //Canvas = GameObject.Find("Canvas").transform;
     }
 
 
-    //Ä¿Ç°ÊÇÍ¨¹ıResMgrµÄÍ¬²½¼ÓÔØÀ´¼ÓÔØUI½çÃæ£¬ÒòÎªÒì²½¼ÓÔØµÄ»°¸Ğ¾õ»áÓĞÒ»Ö¡µÄ¿ÕÏ¶Ã»ÓĞÏÔÊ¾¶«Î÷
+    //ç›®å‰æ˜¯é€šè¿‡ResMgrçš„åŒæ­¥åŠ è½½æ¥åŠ è½½UIç•Œé¢ï¼Œå› ä¸ºå¼‚æ­¥åŠ è½½çš„è¯æ„Ÿè§‰ä¼šæœ‰ä¸€å¸§çš„ç©ºéš™æ²¡æœ‰æ˜¾ç¤ºä¸œè¥¿
     public GameObject ShowPanel<T>(UnityAction<T> callback = null) where T:BasePanel
     {
         string panelName = typeof(T).Name;
@@ -73,19 +73,19 @@ public class UIMgr : BaseManager<UIMgr>
         
 
         panel.name = panelName;
-        Debug.Log("³É¹¦¼ÓÔØÁË" + panel.name + "¶ÔÏó");
+        Debug.Log("æˆåŠŸåŠ è½½äº†" + panel.name + "å¯¹è±¡");
 
-        //·Åµ½¶ÔÓ¦µÄcanvas²ã¼¶ÏÂ
+        //æ”¾åˆ°å¯¹åº”çš„canvaså±‚çº§ä¸‹
         if (CanvasTransform == null)
         {
             CanvasTransform = GameObject.Find("Canvas").transform;
         }
         panel.transform.parent = CanvasTransform;
 
-        //ÉèÖÃÏà¶ÔCanvasµÄÎ»ÖÃºÍ×Ô¼ºpanelµÄËõ·Å
+        //è®¾ç½®ç›¸å¯¹Canvasçš„ä½ç½®å’Œè‡ªå·±panelçš„ç¼©æ”¾
         panel.transform.localPosition = Vector3.zero;
         panel.transform.localScale = Vector3.one * 1.01f;
-        //ÉèÖÃÆÁÄ»´óĞ¡×ÔÊÊÓ¦µÄ up = 0 ºÍ down = 0
+        //è®¾ç½®å±å¹•å¤§å°è‡ªé€‚åº”çš„ up = 0 å’Œ down = 0
         (panel.transform as RectTransform).offsetMax = Vector2.zero;
         (panel.transform as RectTransform).offsetMin = Vector2.zero;
 
@@ -107,7 +107,7 @@ public class UIMgr : BaseManager<UIMgr>
 
 
     /// <summary>
-    /// ÒÆ³ıpanel ²¢Ïú»ÙËü
+    /// ç§»é™¤panel å¹¶é”€æ¯å®ƒ
     /// </summary>
     /// <typeparam name="T"></typeparam>
     public void HidePanel<T>() where T:BasePanel
@@ -115,7 +115,7 @@ public class UIMgr : BaseManager<UIMgr>
         string panelName = typeof(T).Name;
         if (panelDic.ContainsKey(panelName))
         {
-            Debug.Log("destory" + "ÕÒµ½ÁËpanel");
+            Debug.Log("destory" + "æ‰¾åˆ°äº†panel");
 
             if (panelDic[panelName].gameObject != null)
             {
@@ -141,7 +141,7 @@ public class UIMgr : BaseManager<UIMgr>
     }
 
     /// <summary>
-    /// Îª×é¼şÌí¼Ó×Ô¶¨ÒåµÄUI»¥¶¯ÊÂ¼ş
+    /// ä¸ºç»„ä»¶æ·»åŠ è‡ªå®šä¹‰çš„UIäº’åŠ¨äº‹ä»¶
     /// </summary>
     /// <param name="control"></param>
     /// <param name="type"></param>

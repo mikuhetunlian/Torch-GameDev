@@ -1,19 +1,20 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// ÓÃÀ´±íÃ÷µ±Ç°playerËù´¦µÄ×´Ì¬ÊÇÊ²Ã´
+/// ç”¨æ¥è¡¨æ˜å½“å‰playeræ‰€å¤„çš„çŠ¶æ€æ˜¯ä»€ä¹ˆ
 /// </summary>
 public class PlayerStates
 {
     public enum PlayerConditions
     {
-        Normal,// ÎŞ²Ù×÷
-        Move,// ÒÆ¶¯ÖĞ
-        Forzen,// ±»±ù¶³
-        Dead,// ËÀÍö
-        Invincibility,// ÎŞµĞÖ¡
+        Normal,// æ— æ“ä½œ
+        Move,// ç§»åŠ¨ä¸­
+        Forzen,// è¢«å†°å†»
+        Dead,// æ­»äº¡
+        Invincibility,// æ— æ•ŒçŠ¶æ€
+        Fight,// æˆ˜æ–—çŠ¶æ€
 
 
 
