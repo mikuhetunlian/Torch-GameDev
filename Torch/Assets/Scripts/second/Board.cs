@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class Board : MonoBehaviour
 {
-    public float currentHp = 20f;
+    float currentHp = 250f;
     // 射线长度
-    public float lineLength = 0.1f;
+    float lineLength = 0.5f;
     // 左上角
     public Vector2 leftTop;
     // 右上角
     public Vector2 rightTop;
     // 射线个数
-    public float rayCastNum = 64;
+    float rayCastNum = 32;
     protected BoxCollider2D boxCollider;
     // Start is called before the first frame update
     void Start()

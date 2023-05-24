@@ -1,10 +1,10 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 
 /// <summary>
-/// ´¢´æ²ã¼¶Ïà¹ØµÄ¾²Ì¬Êı¾İ¸øÆäËûÀàµ÷ÓÃ
+/// å‚¨å­˜å±‚çº§ç›¸å…³çš„é™æ€æ•°æ®ç»™å…¶ä»–ç±»è°ƒç”¨
 /// </summary>
 public static class  LayerMgr
 {
@@ -19,6 +19,7 @@ public static class  LayerMgr
     public static int PushableLayer = 10;
     public static int SpikeLyaer = 13;
     public static int Metrorrhagia = 14;
+    public static int Enemy = 15;
 
 
     //layerMask
@@ -31,8 +32,9 @@ public static class  LayerMgr
     public static int MovingPlatformLayerMask = 1 << MovingPlatformLayer;
     public static int SpikeLyaerMask = 1 << SpikeLyaer;
     public static int MetrorrhagiaMask = 1 << Metrorrhagia;
+    public static int EnemyMask = 1 << Enemy;
 
-    //¿ÉÒÔ±»ÉäÏß¼ì²â×èµ²µÄlayerMask
+    //å¯ä»¥è¢«å°„çº¿æ£€æµ‹é˜»æŒ¡çš„layerMask
     public static int ObstaclesLayerMask = PlatformLayerMask | OneWayPlatformLayerMask | OneWayMovingPlatformLayerMask;
 
 }
